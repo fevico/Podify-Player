@@ -7,7 +7,7 @@ interface Props extends TextInputProps {
 }
 
 const AppInput: FC<Props> = (props) =>{
-    return <TextInput
+    return <TextInput 
     {...props}
     placeholderTextColor={colors.INACTIVE_CONSTRACT}
     style={[styles.input, props.style]}
