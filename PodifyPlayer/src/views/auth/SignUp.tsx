@@ -10,7 +10,6 @@ import AuthFormContainer from '@components/AuthFormContainer';
 import { useNavigation , NavigationProp} from '@react-navigation/native';
 import { AuthStackParamList } from '@src/@types/navigation';
 import { FormikHelpers } from 'formik';
-import axios from 'axios';
 import client from '@src/api/Client';
 
 
@@ -62,16 +61,17 @@ const SignUp: FC<Props> = props => {
 
   const handleSubmit = async(values: NewUser, actions: FormikHelpers<NewUser>) => {
     // we want to send this information to our api 
+    actions.setSubmitting(true)
     try {
-      const {data} = await client.post('auth/create', 
+      const {data} = await client.post('/auth/create', 
       {...values}
       )
-      console.log(data);
+      navigation.navigate('Verification', {userInfo: data.user});
 
     } catch (error) {
       console.log("Sign up error: ", error);
     }
-
+    actions.setSubmitting(false)
 
   }
 

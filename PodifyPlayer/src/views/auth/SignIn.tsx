@@ -9,6 +9,8 @@ import AppLink from '@ui/AppLink';
 import AuthFormContainer from '@components/AuthFormContainer';
 import { useNavigation , NavigationProp} from '@react-navigation/native';
 import { AuthStackParamList } from '@src/@types/navigation';
+import client from '@src/api/Client';
+import { FormikHelpers } from 'formik';
 
 
 const signupSchema = yup.object({
@@ -27,6 +29,11 @@ const signupSchema = yup.object({
 
 interface Props {}
 
+interface SignInUserInfo {
+  email: string;
+  password: string;
+}
+
 const initialValues = {
   email: '',
   password: '',
@@ -41,12 +48,26 @@ const SignIn: FC<Props> = props => {
     setSecureEntry(!secureEntry);
   };
 
+
+  const handleSubmit = async(values: SignInUserInfo , actions: FormikHelpers<SignInUserInfo>) => {
+    // we want to send this information to our api 
+    actions.setSubmitting(true)
+    try {      
+      const {data} = await client.post('/auth/sign-in', 
+      {...values}
+      )
+      console.log(data)
+
+    } catch (error) {
+      console.log("Sign in error: ", error);
+    }
+    actions.setSubmitting(false)
+
+  }
   return (
       
       <Form
-        onSubmit={values => {
-          console.log(values);
-        }}
+        onSubmit={handleSubmit}
         initialValues={initialValues}
         validationSchema={signupSchema}>
       <AuthFormContainer
