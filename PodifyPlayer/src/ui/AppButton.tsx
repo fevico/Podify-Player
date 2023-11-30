@@ -8,10 +8,13 @@ interface Props {
     title: string;
     onPress?(): void
     busy?: boolean
+    bordeRadius?: number
 }
 
-const AppButton: FC<Props> = ({title, busy, onPress}) =>{
-    return( <Pressable onPress={onPress} style={styles.container}>
+const AppButton: FC<Props> = ({title, busy, onPress, bordeRadius}) =>{
+    return( <Pressable onPress={onPress} style={[styles.container, {
+        bordeRadius: bordeRadius || 25
+    }]}>
         {!busy ? <Text style={styles.title}>{title}</Text> :
         <Loader/> }
     </Pressable>
@@ -25,7 +28,6 @@ const styles = StyleSheet.create({
         backgroundColor: colors.SECONDARY,
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 25
     },
     title: {
         color: colors.CONSTRACT,
