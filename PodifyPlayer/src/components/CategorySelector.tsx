@@ -37,9 +37,10 @@ const CategorySelector = <T extends any>({
 
   return (
     <Modal onRequestClose={onRequestClose} visible={visible} transparent>
-      <Pressable style={styles.backdrop} />
 
       <View style={styles.modelContainer}>
+      <Pressable onPress={onRequestClose} style={styles.backdrop} />
+
         <View style={styles.model}>
           <Text style={styles.title}>{title}</Text>
 
@@ -70,12 +71,14 @@ const styles = StyleSheet.create({
   backdrop: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: colors.INACTIVE_CONSTRACT,
+    zIndex: -1
   },
   modelContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'transparet',
+    zIndex: 1
   },
   model: {
     width: '90%',
