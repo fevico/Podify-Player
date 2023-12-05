@@ -1,23 +1,21 @@
 import AuthInputField from '@components/form/AuthInputField';
 import Form from '@components/form/Index';
 import {FC, useState} from 'react';
-import { StyleSheet, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import * as yup from 'yup';
 import SubmitBtn from '@components/form/SubmitBtn';
 import PasswordVisibilityIcon from '@ui/PasswordVisibilityIcon';
 import AppLink from '@ui/AppLink';
 import AuthFormContainer from '@components/AuthFormContainer';
-import { useNavigation , NavigationProp} from '@react-navigation/native';
-import { AuthStackParamList } from '@src/@types/navigation';
+import {useNavigation, NavigationProp} from '@react-navigation/native';
+import {AuthStackParamList} from '@src/@types/navigation';
 import client from '@src/api/Client';
-import { FormikHelpers } from 'formik';
-import { updateLoggedInState, updateProfile } from '@src/store/auth';
+import {FormikHelpers} from 'formik';
+import {updateLoggedInState, updateProfile} from '@src/store/auth';
 import {useDispatch} from 'react-redux';
-import { keys, saveToAsyncStorage } from '@utils/asyncStorage';
-
+import {keys, saveToAsyncStorage} from '@utils/asyncStorage';
 
 const signupSchema = yup.object({
-
   email: yup
     .string()
     .trim('Email is missing!')
@@ -46,42 +44,37 @@ const SignIn: FC<Props> = props => {
   const [secureEntry, setSecureEntry] = useState(true);
 
   const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const togglePasswordView = () => {
     setSecureEntry(!secureEntry);
   };
 
+  const handleSubmit = async (
+    values: SignInUserInfo,
+    actions: FormikHelpers<SignInUserInfo>,
+  ) => {
+    // we want to send this information to our api
+    actions.setSubmitting(true);
+    try {
+      const {data} = await client.post('/auth/sign-in', {...values});
 
-  const handleSubmit = async(values: SignInUserInfo , actions: FormikHelpers<SignInUserInfo>) => {
-    // we want to send this information to our api 
-    actions.setSubmitting(true)
-    try {      
-      const {data} = await client.post('/auth/sign-in', 
-      {...values}
-      );
+      await saveToAsyncStorage(keys.AUTH_TOKEN, data.token);
 
-      await saveToAsyncStorage(keys.AUTH_TOKEN, data.token)
-
-      dispatch(updateProfile(data.profile))
-      dispatch(updateLoggedInState(true))
+      dispatch(updateProfile(data.profile));
+      dispatch(updateLoggedInState(true));
     } catch (error) {
-      console.log("Sign in error: ", error);
+      console.log('Sign in error: ', error);
     }
-    actions.setSubmitting(false)
-
-  }
+    actions.setSubmitting(false);
+  };
   return (
-      
-      <Form
-        onSubmit={handleSubmit}
-        initialValues={initialValues}
-        validationSchema={signupSchema}>
-      <AuthFormContainer
-      heading='Welcome Back!'
-      >
-      <View style={styles.formContainer}>
-
+    <Form
+      onSubmit={handleSubmit}
+      initialValues={initialValues}
+      validationSchema={signupSchema}>
+      <AuthFormContainer heading="Welcome Back!">
+        <View style={styles.formContainer}>
           <AuthInputField
             name="email"
             placeholder="john@email.com"
@@ -103,22 +96,27 @@ const SignIn: FC<Props> = props => {
           <SubmitBtn title="Sign up" />
 
           <View style={styles.linkContainer}>
-            <AppLink title="I Lost My Password" onPress={() =>{
-              navigation.navigate('LostPassword')
-            }}  />
+            <AppLink
+              title="I Lost My Password"
+              onPress={() => {
+                navigation.navigate('LostPassword');
+              }}
+            />
 
-            <AppLink title="Sign up" onPress={() =>{
-              navigation.navigate('SignUp')
-            }} />
+            <AppLink
+              title="Sign up"
+              onPress={() => {
+                navigation.navigate('SignUp');
+              }}
+            />
           </View>
         </View>
       </AuthFormContainer>
-      </Form>
+    </Form>
   );
 };
 
 const styles = StyleSheet.create({
- 
   formContainer: {
     width: '100%',
   },

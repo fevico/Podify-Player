@@ -41,7 +41,7 @@ const AppNavigator: FC<Props> = props => {
 
         const {data} = await client.get('/auth/is-auth', {
           headers: {
-            Authorization: 'Bearer ' + token,
+            Authorization: "Bearer " + token,
           },
         });
 
