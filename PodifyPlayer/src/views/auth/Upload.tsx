@@ -96,7 +96,7 @@ const Upload: FC<Props> = props => {
       const {data} = await client.post('/audio/create', formData, {
         headers: {
           Authorization: 'Bearer ' + token,
-          'Content-Type': 'multipart/form-data;',
+          'Content-Type': 'multipart/form-data',
         },
         onUploadProgress(progressEvent) {
           const uploaded = mapRange({

@@ -1,4 +1,5 @@
 import LatestUploads from '@components/LatestUploads';
+import RecommendedAudios from '@components/RecommendedAudios';
 import {useFetchLatestAudios} from '@src/hooks/query';
 import PulseAnimationCointainer from '@ui/PulseAnimationCointainer';
 import {FC} from 'react';
@@ -19,6 +20,7 @@ const Home: FC<Props> = () => {
   return (
     <View style={styles.container}>
       <LatestUploads/>
+      <RecommendedAudios/>
     </View>
   );
 };

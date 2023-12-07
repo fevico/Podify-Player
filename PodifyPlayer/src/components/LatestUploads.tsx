@@ -12,7 +12,7 @@ const dummyData = new Array(4).fill('');
 const LatestUploads: FC<Props> = props => {
   const {data, isLoading} = useFetchLatestAudios();
 
-  if (isLoading)
+  if (isLoading) 
     return (
       <PulseAnimationContainer>
         <View style={styles.container}>
