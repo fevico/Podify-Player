@@ -1,6 +1,8 @@
 import CategorySelector from '@components/CategorySelector';
 import FileSelector from '@components/FileSelector';
 import client from '@src/api/Client';
+import catchAsyncError from '@src/api/catchError';
+import { updateNotification } from '@src/store/notification';
 import AppButton from '@ui/AppButton';
 import Progress from '@ui/Progress';
 import {getFromAsyncStorage, keys} from '@utils/asyncStorage';
@@ -18,6 +20,7 @@ import {
 } from 'react-native';
 import {DocumentPickerResponse, types} from 'react-native-document-picker';
 import MaterialComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 
 interface FormFields {
@@ -61,6 +64,7 @@ const Upload: FC<Props> = props => {
   const [audioInfo, setAudioInfo] = useState({...defaultForm});
   const [uploadProgress, setUploadProgress] = useState(0);
   const [busy, setBusy] = useState(false);
+  const dispatch = useDispatch()
 
   const handleUpload = async () => {
     setBusy(true);
@@ -114,12 +118,11 @@ const Upload: FC<Props> = props => {
 
       console.log(data);
     } catch (error) {
-      if (error instanceof yup.ValidationError)
-        console.log('Validation error: ', error.message);
-      else console.log(error.response.data);
-    }
+      const errorMessage = catchAsyncError(error)
+      dispatch(updateNotification({message: errorMessage, type: 'error'}))
     setBusy(false);
   };
+}
 
   return (
     <ScrollView style={styles.container}>

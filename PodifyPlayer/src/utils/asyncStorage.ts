@@ -9,7 +9,7 @@ export const getFromAsyncStorage = async(key: string)=> {
 }
 
 export const clearAsyncStorage = async()=> {
-   await AsyncStorage.clear
+   await AsyncStorage.clear()
 }
 
 export enum keys{

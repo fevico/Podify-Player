@@ -14,6 +14,8 @@ import {FormikHelpers} from 'formik';
 import {updateLoggedInState, updateProfile} from '@src/store/auth';
 import {useDispatch} from 'react-redux';
 import {keys, saveToAsyncStorage} from '@utils/asyncStorage';
+import catchAsyncError from '@src/api/catchError';
+import { updateNotification } from '@src/store/notification';
 
 const signupSchema = yup.object({
   email: yup
@@ -64,7 +66,8 @@ const SignIn: FC<Props> = props => {
       dispatch(updateProfile(data.profile));
       dispatch(updateLoggedInState(true));
     } catch (error) {
-      console.log('Sign in error: ', error);
+      const errorMessage = catchAsyncError(error)
+      dispatch(updateNotification({message: errorMessage, type: 'error'}))
     }
     actions.setSubmitting(false);
   };
