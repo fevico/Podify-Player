@@ -1,39 +1,27 @@
 import colors from '@utils/colors';
 import {FC} from 'react';
-import {FlexStyle, StyleSheet, View} from 'react-native';
+import {View, StyleSheet, FlexStyle} from 'react-native';
 
 interface Props {
   size: number;
   position: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 }
 
-const CircleUI: FC<Props> = ({size, position}) => {
-  let viewPosition: FlexStyle = {};
+const CircleUi: FC<Props> = ({size, position}) => {
+  let viewPostion: FlexStyle = {};
 
   switch (position) {
     case 'top-left':
-      viewPosition = {
-        top: -size / 2,
-        left: -size / 2,
-      };
+      viewPostion = {top: -size / 2, left: -size / 2};
       break;
     case 'top-right':
-      viewPosition = {
-        top: -size / 2,
-        right: -size / 2,
-      };
+      viewPostion = {top: -size / 2, right: -size / 2};
       break;
     case 'bottom-right':
-      viewPosition = {
-        right: -size / 2,
-        bottom: -size / 2,
-      };
+      viewPostion = {bottom: -size / 2, right: -size / 2};
       break;
     case 'bottom-left':
-      viewPosition = {
-        left: -size / 2,
-        bottom: -size / 2,
-      };
+      viewPostion = {bottom: -size / 2, left: -size / 2};
       break;
   }
 
@@ -43,7 +31,7 @@ const CircleUI: FC<Props> = ({size, position}) => {
         width: size,
         height: size,
         position: 'absolute',
-        ...viewPosition,
+        ...viewPostion,
       }}>
       <View
         style={{
@@ -76,4 +64,4 @@ const styles = StyleSheet.create({
   container: {},
 });
 
-export default CircleUI;
+export default CircleUi;

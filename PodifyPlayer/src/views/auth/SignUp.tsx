@@ -11,7 +11,6 @@ import { useNavigation , NavigationProp} from '@react-navigation/native';
 import { AuthStackParamList } from '@src/@types/navigation';
 import { FormikHelpers } from 'formik';
 import client from '@src/api/Client';
-import { isAxiosError } from 'axios';
 import catchAsyncError from '@src/api/catchError';
 import { useDispatch } from 'react-redux';
 import { updateNotification } from '@src/store/notification';
@@ -90,7 +89,7 @@ const SignUp: FC<Props> = props => {
         validationSchema={signupSchema}>
       <AuthFormContainer
       heading='Welcome!'
-      subheading="Let's get started by creating your account."
+      subHeading="Let's get started by creating your account."
       >
       <View style={styles.formContainer}>
           <AuthInputField

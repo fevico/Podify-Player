@@ -36,19 +36,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   heading: {
-    color: colors.SECONDARY,
+    color: colors.PRIMARY,
     fontSize: 25,
     fontWeight: 'bold',
     paddingVertical: 5,
   },
   subheading: {
     color: colors.CONSTRACT,
-     fontSize: 16
-    },
-    headerContainer:{
-        width: "100%",
-        marginBottom: 20
-    }
+    fontSize: 16,
+  },
+  headerContainer: {
+    width: '100%',
+    marginBottom: 20,
+  },
 });
 
 export default AuthFormContainer;

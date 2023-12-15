@@ -2,30 +2,37 @@ import colors from '@utils/colors';
 import {FC, ReactNode} from 'react';
 import {ViewStyle} from 'react-native';
 import {View, StyleSheet, Pressable, Text, StyleProp} from 'react-native';
-import DocumentPicker, {DocumentPickerResponse, DocumentPickerOptions} from 'react-native-document-picker';
-import { SupportedPlatforms } from 'react-native-document-picker/lib/typescript/fileTypes';
+import DocumentPicker, {
+  DocumentPickerResponse,
+  DocumentPickerOptions,
+} from 'react-native-document-picker';
+import {SupportedPlatforms} from 'react-native-document-picker/lib/typescript/fileTypes';
 
 interface Props {
   icon?: ReactNode;
   btnTitle?: string;
   style?: StyleProp<ViewStyle>;
-  onSelect(file:  DocumentPickerResponse): void;
-  options: DocumentPickerOptions<SupportedPlatforms>
+  onSelect(file: DocumentPickerResponse): void;
+  options: DocumentPickerOptions<SupportedPlatforms>;
 }
 
-const FileSelector: FC<Props> = ({icon, onSelect, btnTitle, style, options}) => {
-  const handleDocumentSelect = async() => {
+const FileSelector: FC<Props> = ({
+  icon,
+  onSelect,
+  btnTitle,
+  style,
+  options,
+}) => {
+  const handleDocumentSelect = async () => {
     try {
-      const document = await DocumentPicker.pick(options)
-      const file = document[0]
-      onSelect(file)
+      const document = await DocumentPicker.pick(options);
+      const file = document[0];
+      onSelect(file);
       //  [{"fileCopyUri": null, "name": "", "size": , "type": "", "uri": }]
     } catch (error) {
-      if(!DocumentPicker.isCancel(error)){
-        console.log(error)
-
-      }else{
-
+      if (!DocumentPicker.isCancel(error)) {
+        console.log(error);
+      } else {
       }
     }
   };
@@ -49,7 +56,7 @@ const styles = StyleSheet.create({
     height: 70,
     aspectRatio: 1,
     borderWidth: 2,
-    borderColor: colors.SECONDARY,
+    borderColor: colors.PRIMARY,
     borderRadius: 7,
     alignItems: 'center',
     justifyContent: 'center',

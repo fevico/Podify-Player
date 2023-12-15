@@ -10,8 +10,8 @@ import client from '@src/api/Client';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
 import colors from '@utils/colors';
 import catchAsyncError from '@src/api/catchError';
-import { updateNotification } from '@src/store/notification';
-import { useDispatch } from 'react-redux';
+import {updateNotification} from '@src/store/notification';
+import {useDispatch} from 'react-redux';
 
 type Props = NativeStackScreenProps<AuthStackParamList, 'Verification'>;
 
@@ -25,7 +25,7 @@ const Verification: FC<Props> = ({route}) => {
   const [coundDown, setCoundDown] = useState(60);
   const [canSendNewOtpRequest, setCanSendNewOtpRequest] = useState(false);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const {userInfo} = route.params;
 
@@ -60,14 +60,17 @@ const Verification: FC<Props> = ({route}) => {
   });
 
   const handleSubmit = async () => {
-    if (!isValidOtp) return dispatch(updateNotification({message: 'Invalid OTP!', type: 'error'}));
+    if (!isValidOtp)
+      return dispatch(
+        updateNotification({message: 'Invalid OTP!', type: 'error'}),
+      );
     setSubmitting(true);
     try {
       const {data} = await client.post('/auth/verify-email', {
         userId: userInfo.id,
         token: otp.join(''),
       });
-      dispatch(updateNotification({message: data.messge, type: 'success'}))
+      dispatch(updateNotification({message: data.messge, type: 'success'}));
       // navigate back to sign in
       navigation.navigate('SignIn');
     } catch (error) {
@@ -84,8 +87,9 @@ const Verification: FC<Props> = ({route}) => {
         userId: userInfo.id,
       });
     } catch (error) {
-      const errorMessage = catchAsyncError(error)
-      dispatch(updateNotification({message: errorMessage, type: 'error'}))    }
+      const errorMessage = catchAsyncError(error);
+      dispatch(updateNotification({message: errorMessage, type: 'error'}));
+    }
   };
 
   useEffect(() => {
@@ -163,7 +167,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   countDown: {
-    color: colors.SECONDARY,
+    color: colors.PRIMARY,
     marginRight: 7,
   },
 });

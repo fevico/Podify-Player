@@ -8,9 +8,9 @@ interface Props {
 
 const PasswordVisibilityIcon: FC<Props> = ({privateIcon}) => {
   return privateIcon ? (
-    <Icon name="eye" color={colors.SECONDARY} size={16} /> 
+    <Icon name="eye" color={colors.PRIMARY} size={16} />
   ) : (
-    <Icon name="eye-with-line" color={colors.SECONDARY} size={16} />
+    <Icon name="eye-with-line" color={colors.PRIMARY} size={16} />
   );
 };
 

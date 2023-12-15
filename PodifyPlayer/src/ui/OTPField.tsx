@@ -1,6 +1,6 @@
 import colors from '@utils/colors';
-import { forwardRef} from 'react';
-import { StyleSheet, TextInput, TextInputProps} from 'react-native';
+import {forwardRef} from 'react';
+import {StyleSheet, TextInput, TextInputProps} from 'react-native';
 
 interface Props extends TextInputProps {
   ref: any;
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    borderColor: colors.SECONDARY,
+    borderColor: colors.PRIMARY,
     borderWidth: 2,
     textAlign: 'center',
     color: colors.CONSTRACT,

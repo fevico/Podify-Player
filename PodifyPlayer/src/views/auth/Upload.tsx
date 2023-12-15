@@ -1,11 +1,7 @@
 import CategorySelector from '@components/CategorySelector';
 import FileSelector from '@components/FileSelector';
-import client from '@src/api/Client';
-import catchAsyncError from '@src/api/catchError';
-import { updateNotification } from '@src/store/notification';
 import AppButton from '@ui/AppButton';
 import Progress from '@ui/Progress';
-import {getFromAsyncStorage, keys} from '@utils/asyncStorage';
 import {categories} from '@utils/category';
 import colors from '@utils/colors';
 import {mapRange} from '@utils/math';
@@ -20,7 +16,10 @@ import {
 } from 'react-native';
 import {DocumentPickerResponse, types} from 'react-native-document-picker';
 import MaterialComIcon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
+import catchAsyncError from '@src/api/catchError';
+import {getClient} from '@src/api/Client';
+import {updateNotification} from '@src/store/notification';
 import * as yup from 'yup';
 
 interface FormFields {
@@ -64,7 +63,8 @@ const Upload: FC<Props> = props => {
   const [audioInfo, setAudioInfo] = useState({...defaultForm});
   const [uploadProgress, setUploadProgress] = useState(0);
   const [busy, setBusy] = useState(false);
-  const dispatch = useDispatch()
+
+  const dispatch = useDispatch();
 
   const handleUpload = async () => {
     setBusy(true);
@@ -89,15 +89,10 @@ const Upload: FC<Props> = props => {
           uri: finalData.poster.uri,
         });
 
-      const token = await getFromAsyncStorage(keys.AUTH_TOKEN);
 
-      console.log(token);
-
+      const client = await getClient({ 'Content-Type': 'multipart/form-data;'})
       const {data} = await client.post('/audio/create', formData, {
-        headers: {
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'multipart/form-data',
-        },
+      
         onUploadProgress(progressEvent) {
           const uploaded = mapRange({
             inputMin: 0,
@@ -118,11 +113,11 @@ const Upload: FC<Props> = props => {
 
       console.log(data);
     } catch (error) {
-      const errorMessage = catchAsyncError(error)
-      dispatch(updateNotification({message: errorMessage, type: 'error'}))
+      const errorMessage = catchAsyncError(error);
+      dispatch(updateNotification({message: errorMessage, type: 'error'}));
+    }
     setBusy(false);
   };
-}
 
   return (
     <ScrollView style={styles.container}>
@@ -241,7 +236,7 @@ const styles = StyleSheet.create({
   },
   category: {
     padding: 10,
-    color: colors.PRIMARY,
+    color: colors.SECONDARY,
   },
   categorySelector: {
     flexDirection: 'row',

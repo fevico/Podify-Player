@@ -76,7 +76,7 @@ const SignIn: FC<Props> = props => {
       onSubmit={handleSubmit}
       initialValues={initialValues}
       validationSchema={signupSchema}>
-      <AuthFormContainer heading="Welcome Back!">
+      <AuthFormContainer heading="Welcome back!">
         <View style={styles.formContainer}>
           <AuthInputField
             name="email"
@@ -96,7 +96,7 @@ const SignIn: FC<Props> = props => {
             rightIcon={<PasswordVisibilityIcon privateIcon={secureEntry} />}
             onRightIconPress={togglePasswordView}
           />
-          <SubmitBtn title="Sign up" />
+          <SubmitBtn title="Sign in" />
 
           <View style={styles.linkContainer}>
             <AppLink
@@ -105,7 +105,6 @@ const SignIn: FC<Props> = props => {
                 navigation.navigate('LostPassword');
               }}
             />
-
             <AppLink
               title="Sign up"
               onPress={() => {

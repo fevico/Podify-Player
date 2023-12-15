@@ -5,14 +5,16 @@ import {StyleSheet, Pressable, Text} from 'react-native';
 interface Props {
   title: string;
   onPress?(): void;
-  active?: boolean
+  active?: boolean;
 }
 
 const AppLink: FC<Props> = ({title, active = true, onPress}) => {
   return (
-    <Pressable onPress={active ? onPress : null} style={{opacity: active ? 1 : 0.4}}>
+    <Pressable
+      onPress={active ? onPress : null}
+      style={{opacity: active ? 1 : 0.4}}>
       <Text style={styles.title}>{title}</Text>
-    </Pressable> 
+    </Pressable>
   );
 };
 
