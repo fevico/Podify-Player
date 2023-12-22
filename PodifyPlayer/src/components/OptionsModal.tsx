@@ -1,12 +1,11 @@
 import BasicModalContainer from '@ui/BasicModalContainer';
-import { FC } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 interface Props<T> {
-    visible: boolean
+    visible: boolean 
     onRequestClose(): void;
     options: T[];
-    renderItem(item: T): JSX.Element
+    renderItem(item: T): JSX.Element 
 }
 
 const OptionsModal = <T extends any>({visible, options, onRequestClose, renderItem}: Props<T>) =>{
@@ -15,7 +14,7 @@ const OptionsModal = <T extends any>({visible, options, onRequestClose, renderIt
           return <View key={index}>
             {renderItem(item)}
             </View>
-        })}
+        })} 
     </BasicModalContainer>
 };
 

@@ -15,7 +15,7 @@ interface Props {
   onSelect(file: DocumentPickerResponse): void;
   options: DocumentPickerOptions<SupportedPlatforms>;
 }
-
+ 
 const FileSelector: FC<Props> = ({
   icon,
   onSelect,

@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
   },
   heading: {
-    color: colors.PRIMARY,
-    fontSize: 25,
+    color: colors.SECONDARY,
+    fontSize: 25, 
     fontWeight: 'bold',
     paddingVertical: 5,
   },
@@ -45,9 +45,9 @@ const styles = StyleSheet.create({
     color: colors.CONSTRACT,
     fontSize: 16,
   },
-  headerContainer: {
+  headerContainer: { 
     width: '100%',
-    marginBottom: 20,
+    marginBottom: 20, 
   },
 });
 

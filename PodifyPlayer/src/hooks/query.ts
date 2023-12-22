@@ -78,3 +78,21 @@ export const useFetchUploadsByProfile = () => {
         },
     });
 }
+
+const fetchFavourite = async(): Promise<AudioData[]> =>{
+    const client = await getClient()
+    const {data} = await client('/favourite');
+    return data.audios;
+ }
+
+export const useFetchFavourite = () => {
+    const dispatch = useDispatch()
+
+    return useQuery(['favourite'], {
+        queryFn: () => fetchFavourite(),
+        onError(err) {
+            const errorMessage = catchAsyncError(err)
+            dispatch(updateNotification({message: errorMessage, type: 'error'}))
+        },
+    });
+}

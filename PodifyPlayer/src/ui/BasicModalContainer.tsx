@@ -18,7 +18,7 @@ const BasicModalContainer: FC<Props> = ({visible, children, onRequestClose}) => 
             {children}
         </View>
       </View>
-    </Modal>
+    </Modal> 
   );
 };
 

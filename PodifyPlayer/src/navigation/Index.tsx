@@ -15,7 +15,7 @@ import Loader from '@ui/Loader';
 import { View, StyleSheet } from 'react-native';
 import colors from '@utils/colors';
 
-interface Props {}
+interface Props {} 
 
 const AppTheme = {
   ...DefaultTheme,

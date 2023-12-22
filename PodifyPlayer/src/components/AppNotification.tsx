@@ -10,7 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   getNotificationState,
   updateNotification,
-} from '@src/store/notification';
+} from '@src/store/notification'; 
 
 interface Props {}
 

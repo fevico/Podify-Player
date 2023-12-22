@@ -36,7 +36,7 @@ const PlaylistModal: FC<Props> = ({visible, list, onPlaylistPress, onCreateNewPr
       <ScrollView>
         {list.map(item => {
           return (
-            <ListItem
+            <ListItem 
             onPress={()=> onPlaylistPress(item)}
               key={item.id}
               icon={

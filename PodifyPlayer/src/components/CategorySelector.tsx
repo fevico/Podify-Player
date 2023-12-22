@@ -40,7 +40,7 @@ const CategorySelector = <T extends any>({
       <Text style={styles.title}>{title}</Text>
 
       <ScrollView>
-        {data.map((item, index) => {
+        {data.map((item, index) => { 
           return (
             <Pressable
               onPress={() => handleSelect(item, index)}
